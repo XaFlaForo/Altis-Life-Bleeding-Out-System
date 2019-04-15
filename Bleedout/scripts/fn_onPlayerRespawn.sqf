@@ -57,7 +57,7 @@ if (!XaFlaForo_in_down_state) then
 
 
   //--- Init Death screenshot
-  [] spawn FGS_fnc_deathscreen;
+  [] spawn XaFlaForo_fnc_deathscreen;
 
   //--- Revive effects
 //  [] spawn FGS_fnc_bleedoutEffects;
@@ -90,7 +90,7 @@ else
   [] call life_fnc_setupActions;
   deleteMarker "Dead Player";
   deleteVehicle life_corpse;
-  6969 cutText["Thanks For Using Death Screen By XaFlaForo - To remove this notice please donate £0.99 to XaFlaForo","PLAIN"];
+  6969 cutText["Thanks For Using Death Screen By XaFlaForo","PLAIN"];
 
   //--- Reset Client Variables
   life_action_inUse = false;
