@@ -20,11 +20,5 @@
  * paypal.me/EthanSolutions
  */
 
-//--- Get Plaer Back To Normal
-[player, ""] remoteExecCall ["life_fnc_animSync", 0];
-[] call life_fnc_setupActions;
-_unit setUnitLoadout XaFlaForo_bleeding_loadout;
-6969 cutText["","PLAIN"]; 
-life_action_inUse = false;
-XaFlaForo_in_down_state = false;
-XaFlaForo_Can_Suicide = true;
+XaFlaForo_Revive = 0;
+XaFlaForo_in_revive_state = true;

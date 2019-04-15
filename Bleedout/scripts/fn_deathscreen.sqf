@@ -28,33 +28,45 @@ scriptName "XaFlaForo_fnc_deathscreen";
 scopeName "main";
 #define __filename "fn_deathscreen.sqf"
 
-//--- PASS UNIT PARAM
-params ["_unit", "_display"];
-
 //--- Variables For Deathscreen
 XaFlaForo_Blood = 0.00;
 XaFlaForo_Can_Suicide = false;
 XaFlaForo_forceBleedOut = false;
-XaFlaForo_Medic_Distance = if (([independent,getPosATL player,120] call life_fnc_nearUnits)) then {"Yes"} else {"No"};
-
-//--- Remove The Hud
-[] call life_fnc_hudUpdate;
+XaFlaForo_in_revive_state = false;
 
 //--- Fetch Display
 6969 cutRsc["Life_Death_Screen","PLAIN"];
 BLEEDOUTCtrl(99533) ctrlSetText "RESPAWN NOT AVAILIABLE";
-(uiNamespace getVariable ["Life_Death_Screen",displayNull]) displaySetEventHandler ["KeyDown","if ((_this select 1) isEqualTo 1) then {true}"]; //Block the ESC menu
-
 
  //--- LOOP DEATHSCREEN
-while {XaFlaForo_in_down_state} do {
-
+while {XaFlaForo_in_down_state} do
+{
+    if (XaFlaForo_in_revive_state) then
+    {
+        BLEEDOUTCtrl(99532) progressSetPosition XaFlaForo_Revive;
+        XaFlaForo_Revive = XaFlaForo_Revive + 0.01;
+        BLEEDOUTCtrl(99533) ctrlSetText "YOU ARE BEING REVIVED";
+        BLEEDOUTCtrl(99532)  ctrlSetTextColor [0, 0.67, 0.14, 1];
+        sleep 0.05;
+          if (XaFlaForo_Revive >= 0.99) then
+          {
+            [player, ""] remoteExecCall ["life_fnc_animSync", 0];
+            [] call life_fnc_setupActions;
+            player setUnitLoadout XaFlaForo_bleeding_loadout;
+            6969 cutText["","PLAIN"];
+            life_action_inUse = false;
+            XaFlaForo_in_down_state = false;
+            XaFlaForo_Can_Suicide = true;
+          };
+    }
+    else
+    {
       //--- Control Progress Bar
       BLEEDOUTCtrl(99532) progressSetPosition (1 - (damage player));
-
+      BLEEDOUTCtrl(99532)  ctrlSetTextColor [0.69, 0.03, 0, 1];
 
      //--- Set damage
-     _unit setDammage XaFlaForo_Blood;
+     player setDammage XaFlaForo_Blood;
 
      if (XaFlaForo_Blood >= 0.22) then {
          XaFlaForo_Can_Suicide = true;
@@ -62,7 +74,10 @@ while {XaFlaForo_in_down_state} do {
      };
 
      if (XaFlaForo_forceBleedOut) then {
-          _unit setDammage 1;
+          player setDammage 1;
      };
 
+     cutText ["playerHUD",""];
+
+   };
 };
