@@ -18,8 +18,6 @@
      class onPlayerKilled          {};
      class onPlayerRespawn         {};
      class deathscreen             {};
-     class handleHeal              {};
-     class handleMedicRequest      {};
      class onRevive                {};
      class bleedoutEffects         {};
  };
