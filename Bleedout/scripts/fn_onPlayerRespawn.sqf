@@ -59,14 +59,8 @@ if (!XaFlaForo_in_down_state) then
   //--- Init Death screenshot
   [] spawn XaFlaForo_fnc_deathscreen;
 
-  //--- Revive effects
-//  [] spawn FGS_fnc_bleedoutEffects;
-
   //--- Change Variables
   XaFlaForo_in_down_state = true;
-
-  //--- Medic XaFlaForo_fnc_handleMedicRequest
-//  [] remoteExec XaFlaForo_fnc_handleMedicRequest;
 
 }
 //--- Player has been killed (already was in bleeding out stage)
@@ -107,11 +101,8 @@ else
   [4] call SOCK_fnc_updatePartial;
 
   //--- Revive effects
-  [] spawn FGS_fnc_bleedoutEffects;
+  //[] spawn FGS_fnc_bleedoutEffects;
 
   //--- Load Spawn Menu
   [] call life_fnc_spawnmenu;
-
-  (findDisplay 73001) displaySetEventHandler ["KeyDown","if ((_this select 1) isEqualTo 1) then {false}"];
-
 };
